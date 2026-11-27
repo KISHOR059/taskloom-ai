@@ -1,4 +1,4 @@
-export const NOTIFICATIONS_OPEN_EVENT = "aethermind:open-notifications";
+export const NOTIFICATIONS_OPEN_EVENT = "taskloom:open-notifications";
 
 export type NotificationsOpenDetail = {
   readFilter?: "UNREAD";

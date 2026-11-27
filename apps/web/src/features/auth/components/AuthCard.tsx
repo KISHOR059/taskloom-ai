@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { motion } from "framer-motion";
 
-import { AetherMindLogo } from "@/shared/components/AetherMindLogo";
+import { TaskloomLogo } from "@/shared/components/TaskloomLogo";
 import { cn } from "@/shared/lib/cn";
 
 type AuthCardProps = {
@@ -35,7 +35,7 @@ function AuthCard({ title, description, footer, children }: AuthCardProps) {
       >
         {/* Brand */}
         <div className="mb-6 sm:mb-7 flex flex-col items-center gap-2 text-center">
-          <AetherMindLogo size="lg" linkToHome={false} />
+          <TaskloomLogo size="lg" linkToHome={false} />
           <p className="mt-1 text-[11px] font-medium tracking-[0.25em] text-muted-foreground/70 uppercase select-none">
             Your intelligent productivity assistant
           </p>

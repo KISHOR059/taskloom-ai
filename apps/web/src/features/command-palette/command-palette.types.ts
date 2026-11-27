@@ -28,6 +28,7 @@ export type PaletteAction =
   | "task-breakdown-pick"
   | "task-prioritization"
   | "smart-reschedule"
+  | "open-assistant"
   | "open-notifications"
   | "notifications-unread"
   | "mark-all-read"
@@ -60,6 +61,7 @@ export type CommandContext = {
   openAiDialog: (kind: AiDialogKind) => void;
   startTaskBreakdown: () => void;
   openTaskBreakdown: (taskId: string, taskTitle: string) => void;
+  openAssistant: () => void;
   openNotifications: (readFilter?: "UNREAD") => void;
   markAllRead: () => void;
   cycleTheme: () => void;

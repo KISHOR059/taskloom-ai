@@ -22,9 +22,10 @@ export function AssistantSidebar({
   className,
 }: AssistantSidebarProps) {
   return (
-    <div
+    <aside
+      aria-label="Conversation history"
       className={cn(
-        "flex h-full flex-col rounded-2xl border border-border/70 bg-card/50 p-3 shadow-2xs",
+        "flex h-full flex-col rounded-2xl border border-border/60 bg-card/70 p-3 backdrop-blur-md shadow-xs",
         className,
       )}
     >
@@ -36,7 +37,7 @@ export function AssistantSidebar({
         onRename={onRename}
         onDelete={onDelete}
       />
-    </div>
+    </aside>
   );
 }
 

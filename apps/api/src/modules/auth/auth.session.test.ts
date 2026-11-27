@@ -95,7 +95,7 @@ describe("auth sessions", () => {
     expect(response.status).toBe(200);
     expect(response.body.data.accessToken).toBeTypeOf("string");
     expect(response.body.data.user.id).toBe(userId);
-    expect(cookie).toContain("aethermind_refresh_token=");
+    expect(cookie).toContain("taskloom_refresh_token=");
     expect(await sessionCount(userId)).toBe(1);
 
     const session = await SessionModel.findOne({ userId });

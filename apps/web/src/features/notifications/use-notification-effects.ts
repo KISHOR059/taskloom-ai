@@ -10,7 +10,7 @@ import {
 } from "./browser-notifications";
 import { notificationService } from "./notification.service";
 
-export const JUST_LOGGED_IN_KEY = "aethermind_just_logged_in";
+export const JUST_LOGGED_IN_KEY = "taskloom_just_logged_in";
 
 export function useNotificationEffects() {
   const prevUnreadCountRef = useRef<number | null>(null);

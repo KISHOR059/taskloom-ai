@@ -267,6 +267,8 @@ export function resolveExecutor(command: {
       return (context) => context.openAiDialog("task-prioritization");
     case "smart-reschedule":
       return (context) => context.openAiDialog("smart-reschedule");
+    case "open-assistant":
+      return (context) => context.openAssistant();
     case "open-notifications":
       return (context) => context.openNotifications();
     case "notifications-unread":

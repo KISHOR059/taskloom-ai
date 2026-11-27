@@ -15,7 +15,7 @@ type ThemeContextValue = {
   setTheme: (theme: Theme) => void;
 };
 
-const THEME_STORAGE_KEY = "aethermind-theme";
+const THEME_STORAGE_KEY = "taskloom-theme";
 
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 

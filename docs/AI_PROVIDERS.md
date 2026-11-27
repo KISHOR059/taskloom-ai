@@ -1,12 +1,12 @@
-# AetherMind AI Provider Architecture: Google Gemini 3.5 Flash
+# Taskloom AI Provider Architecture: Google Gemini 3.5 Flash
 
-This document describes the AI Provider architecture for AetherMind, detailing the primary **Google Gemini 3.5 Flash** integration via the official `@google/genai` SDK, structured output parsing, Zod schema validation, transient error handling, security practices, and production deployment considerations.
+This document describes the AI Provider architecture for Taskloom, detailing the primary **Google Gemini 3.5 Flash** integration via the official `@google/genai` SDK, structured output parsing, Zod schema validation, transient error handling, security practices, and production deployment considerations.
 
 ---
 
 ## 1. Overview & Architecture
 
-AetherMind employs a decoupled, modular AI subsystem built on the principle of **Dependency Inversion**. Application and domain services never communicate directly with vendor SDKs. All AI capabilities flow through a unified four-stage pipeline backed by an abstract provider contract (`AIProvider`).
+Taskloom employs a decoupled, modular AI subsystem built on the principle of **Dependency Inversion**. Application and domain services never communicate directly with vendor SDKs. All AI capabilities flow through a unified four-stage pipeline backed by an abstract provider contract (`AIProvider`).
 
 ```
                   ┌──────────────────────────────────────────────┐
@@ -246,11 +246,11 @@ GET /api/v1/ai/health
 
 - **Zero Local Daemons**: The AI engine requires no local daemon, no `localhost:11434` port, no local GPU/VRAM hardware, and no local model weight files.
 - **Serverless & Container Compatibility**: With typical Gemini 3.5 Flash latencies of 1.5s – 5.0s, the AI provider functions seamlessly within standard serverless function timeouts (e.g. Vercel, AWS Lambda, Google Cloud Run).
-- **Client Communication**: The web client communicates exclusively with the AetherMind Express API (`/api/v1/ai/*`). The browser never communicates directly with Google Gemini.
+- **Client Communication**: The web client communicates exclusively with the Taskloom Express API (`/api/v1/ai/*`). The browser never communicates directly with Google Gemini.
 
 ---
 
 ## 10. Historical Migration Note
 
 > [!NOTE]
-> *Historical Architecture Note*: Earlier versions of AetherMind supported local inference via Ollama (`llama3.2:3b`) with a proxy fallback orchestrator (`FallbackProvider`). Ollama and multi-provider fallback proxies were permanently decommissioned in favor of a streamlined, cloud-first **Google Gemini 3.5 Flash** architecture to eliminate latency bottlenecks, reduce operational overhead, and enable serverless cloud deployments.
+> *Historical Architecture Note*: Earlier versions of Taskloom supported local inference via Ollama (`llama3.2:3b`) with a proxy fallback orchestrator (`FallbackProvider`). Ollama and multi-provider fallback proxies were permanently decommissioned in favor of a streamlined, cloud-first **Google Gemini 3.5 Flash** architecture to eliminate latency bottlenecks, reduce operational overhead, and enable serverless cloud deployments.

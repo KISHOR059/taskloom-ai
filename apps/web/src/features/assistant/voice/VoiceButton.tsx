@@ -43,7 +43,7 @@ export function VoiceButton({
       case "disabled":
         return "Voice input is not supported in this browser.";
       default:
-        return "Click to speak with AetherMind";
+        return "Click to speak with Taskloom";
     }
   };
 

@@ -1,4 +1,4 @@
-const LAST_ACTIVITY_KEY = "aethermind_last_activity";
+const LAST_ACTIVITY_KEY = "taskloom_last_activity";
 const THROTTLE_MS = 30_000;
 
 const ACTIVITY_EVENTS = [

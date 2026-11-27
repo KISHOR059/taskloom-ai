@@ -16,7 +16,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { useAuth } from "../hooks/auth.context";
 import { loginSchema, type LoginFormValues } from "../validation/auth.validation";
-import { AetherMindLogo } from "@/shared/components/AetherMindLogo";
+import { TaskloomLogo } from "@/shared/components/TaskloomLogo";
 import { Button } from "@/shared/components/ui/button";
 import { Input } from "@/shared/components/ui/input";
 import { cn } from "@/shared/lib/cn";
@@ -67,7 +67,7 @@ function LoginForm() {
     setAuthError(null);
     try {
       await login(values);
-      sessionStorage.setItem("aethermind_just_logged_in", "true");
+      sessionStorage.setItem("taskloom_just_logged_in", "true");
       notify.success("Welcome back");
       navigate("/dashboard", { replace: true });
     } catch (error) {
@@ -96,7 +96,7 @@ function LoginForm() {
       >
         {/* ── Brand block ── */}
         <div className="mb-6 sm:mb-7 flex flex-col items-center gap-2 text-center">
-          <AetherMindLogo size="lg" linkToHome={false} />
+          <TaskloomLogo size="lg" linkToHome={false} />
           <p className="mt-1 text-[11px] font-medium tracking-[0.25em] text-muted-foreground/70 uppercase select-none">
             Your intelligent productivity assistant
           </p>
@@ -113,7 +113,7 @@ function LoginForm() {
               Welcome back
             </h1>
             <p className="mt-1.5 text-sm text-muted-foreground">
-              Sign in to continue to AetherMind
+              Sign in to continue to Taskloom
             </p>
           </div>
 

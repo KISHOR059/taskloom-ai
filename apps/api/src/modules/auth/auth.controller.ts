@@ -10,7 +10,7 @@ import { authService } from "./auth.container.js";
 import type { AuthService } from "./auth.service.js";
 import type { LoginInput, RegisterInput } from "./auth.validation.js";
 
-export const REFRESH_TOKEN_COOKIE = "aethermind_refresh_token";
+export const REFRESH_TOKEN_COOKIE = "taskloom_refresh_token";
 
 export function getRefreshCookieOptions() {
   const isProd = env.NODE_ENV === "production";

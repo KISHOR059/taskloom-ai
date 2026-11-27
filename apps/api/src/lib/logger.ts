@@ -39,7 +39,7 @@ function prettyValue(value: unknown) {
 
 function write(level: LogLevel, message: string, context: LogContext = {}) {
   const timestamp = new Date().toISOString();
-  const record = { timestamp, level, service: "aethermind-api", message, ...context };
+  const record = { timestamp, level, service: "taskloom-api", message, ...context };
 
   if (env.NODE_ENV === "development") {
     const details = Object.entries(context)

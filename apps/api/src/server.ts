@@ -24,7 +24,7 @@ async function bootstrap(): Promise<Server> {
   reminderScheduler.start();
 
   const server = app.listen(env.PORT, () => {
-    logger.info(`AetherMind API listening on port ${env.PORT}`);
+    logger.info(`Taskloom API listening on port ${env.PORT}`);
   });
 
   server.on("error", (error) => {

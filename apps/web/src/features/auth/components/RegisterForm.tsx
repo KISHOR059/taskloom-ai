@@ -17,7 +17,7 @@ function RegisterForm() {
   const onSubmit = async (values: RegisterFormValues) => {
     try {
       await registerUser({ firstName: values.firstName, lastName: values.lastName, email: values.email, password: values.password });
-      sessionStorage.setItem("aethermind_just_logged_in", "true");
+      sessionStorage.setItem("taskloom_just_logged_in", "true");
       notify.success("Account created", "You are now signed in.");
       navigate("/dashboard", { replace: true });
     } catch (error) {
@@ -25,7 +25,7 @@ function RegisterForm() {
     }
   };
 
-  return <AuthCard title="Create your account" description="Start organizing your work with AetherMind." footer={<>Already have an account? <Link className="font-medium text-foreground underline-offset-4 hover:underline" to="/login">Sign in</Link></>}>
+  return <AuthCard title="Create your account" description="Start organizing your work with Taskloom." footer={<>Already have an account? <Link className="font-medium text-foreground underline-offset-4 hover:underline" to="/login">Sign in</Link></>}>
     <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
       <div className="grid gap-4 sm:grid-cols-2"><div className="space-y-2"><label className="text-sm font-medium" htmlFor="register-first-name">First name</label><Input id="register-first-name" autoComplete="given-name" {...register("firstName")} />{errors.firstName && <p className="text-sm text-destructive">{errors.firstName.message}</p>}</div><div className="space-y-2"><label className="text-sm font-medium" htmlFor="register-last-name">Last name</label><Input id="register-last-name" autoComplete="family-name" {...register("lastName")} />{errors.lastName && <p className="text-sm text-destructive">{errors.lastName.message}</p>}</div></div>
       <div className="space-y-2"><label className="text-sm font-medium" htmlFor="register-email">Email</label><Input id="register-email" autoComplete="email" type="email" {...register("email")} />{errors.email && <p className="text-sm text-destructive">{errors.email.message}</p>}</div>

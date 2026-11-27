@@ -1,6 +1,6 @@
 # Domain Event Flow
 
-AetherMind uses an in-process, typed event bus for decoupling domain work from
+Taskloom uses an in-process, typed event bus for decoupling domain work from
 future side effects. It is intentionally local to the API process; there is no
 queue, broker, Redis dependency, or database-backed event store.
 

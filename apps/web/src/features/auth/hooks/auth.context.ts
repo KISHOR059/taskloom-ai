@@ -4,7 +4,7 @@ import type { LoginInput, RegisterInput, User } from "../types";
 
 export type SignOutReason = "user" | "session-expired";
 
-export const SIGN_OUT_REASON_KEY = "aethermind_signout_reason";
+export const SIGN_OUT_REASON_KEY = "taskloom_signout_reason";
 
 export type AuthContextValue = {
   user: User | null;

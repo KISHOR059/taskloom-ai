@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { calendarService } from "./calendar.service";
 import type { CalendarView } from "./calendar.types";
 
-const CALENDAR_VIEW_KEY = "aethermind-calendar-view";
+const CALENDAR_VIEW_KEY = "taskloom-calendar-view";
 const MOBILE_QUERY = "(max-width: 767px)";
 
 export const calendarKeys = {

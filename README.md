@@ -1,8 +1,8 @@
-# AetherMind AI
+# Taskloom AI
 
 > An AI-powered, full-stack task management platform that turns your task backlog into an actionable daily plan.
 
-AetherMind AI is a production-grade monorepo application built with **React 19**, **Express**, **TypeScript**, **MongoDB**, and **Turborepo**. It combines classic task management (tasks, calendar, dashboards) with an autonomous AI cognitive layer that prioritizes work, plans your day, breaks down complex tasks, and reviews your week — powered exclusively by **Google Gemini 3.5 Flash**.
+Taskloom AI is a production-grade monorepo application built with **React 19**, **Express**, **TypeScript**, **MongoDB**, and **Turborepo**. It combines classic task management (tasks, calendar, dashboards) with an autonomous AI cognitive layer that prioritizes work, plans your day, breaks down complex tasks, and reviews your week — powered exclusively by **Google Gemini 3.5 Flash**.
 
 ---
 
@@ -74,7 +74,7 @@ AetherMind AI is a production-grade monorepo application built with **React 19**
 ## Monorepo Structure
 
 ```text
-aethermind-ai/
+taskloom-ai/
 ├── apps/
 │   ├── web/                      # React + Vite frontend
 │   │   └── src/
@@ -131,7 +131,7 @@ AiService ──> AIPipeline
 
 ```bash
 git clone <YOUR_REPOSITORY_URL>
-cd aethermind-ai
+cd taskloom-ai
 pnpm install
 ```
 
@@ -153,9 +153,9 @@ Create `apps/api/.env`:
 PORT=4000
 WEB_ORIGIN=http://localhost:5173
 NODE_ENV=development
-MONGODB_URI=mongodb://127.0.0.1:27017/aethermind
-JWT_ACCESS_SECRET=aethermind-development-access-secret-change-me
-JWT_REFRESH_SECRET=aethermind-development-refresh-secret-change-me
+MONGODB_URI=mongodb://127.0.0.1:27017/taskloom
+JWT_ACCESS_SECRET=taskloom-development-access-secret-change-me
+JWT_REFRESH_SECRET=taskloom-development-refresh-secret-change-me
 JWT_ACCESS_EXPIRES_IN=15m
 JWT_REFRESH_EXPIRES_IN=7d
 
@@ -173,7 +173,7 @@ Create `apps/web/.env`:
 
 ```env
 VITE_API_URL=http://localhost:4000/api/v1
-VITE_APP_NAME=AetherMind
+VITE_APP_NAME=Taskloom
 VITE_APP_VERSION=1.0.0
 ```
 
@@ -196,7 +196,7 @@ pnpm --filter api seed
 Creates a demo user and 10 sample tasks. Login with:
 
 ```text
-Email:    demo@aethermind.ai
+Email:    demo@taskloom.ai
 Password: DemoPassword123!
 ```
 
@@ -251,7 +251,7 @@ All endpoints are prefixed with `/api/v1` and (except auth/health) require `Auth
 ## Production & Deployment Notes
 
 - **AI Inference**: All AI requests are executed server-side by the Express API via `@google/genai` against Google's cloud infrastructure.
-- **Security & Secrets**: `GEMINI_API_KEY` is strictly confined to the backend server environment. The frontend React application communicates solely through authenticated AetherMind API endpoints (`/api/v1/ai/*`) and never handles or exposes AI credentials.
+- **Security & Secrets**: `GEMINI_API_KEY` is strictly confined to the backend server environment. The frontend React application communicates solely through authenticated Taskloom API endpoints (`/api/v1/ai/*`) and never handles or exposes AI credentials.
 - **Cloud & Serverless Compatibility**: With the complete removal of local Ollama daemons, the AI engine requires zero local GPU resources, persistent model files, or `localhost:11434` daemons. Gemini 3.5 Flash responses complete in ~1.5s–5s, operating comfortably within standard serverless and container execution limits.
 
 ---

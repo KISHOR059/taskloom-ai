@@ -1,7 +1,7 @@
 # Command Palette
 
 The command palette (⌘K / Ctrl+K) is a keyboard-first launcher for navigating
-AetherMind, creating tasks, running AI workflows, and controlling notifications.
+Taskloom, creating tasks, running AI workflows, and controlling notifications.
 It lives in `apps/web/src/features/command-palette`.
 
 ## Opening
@@ -100,10 +100,10 @@ The palette can open the AI workflows without duplicating their UI state:
 
 `localStorage` keys (see `COMMAND_PALETTE_STORAGE_KEYS`):
 
-- `aethermind:command-palette:recent-commands` — last 10 executed commands
+- `taskloom:command-palette:recent-commands` — last 10 executed commands
   (dynamic task/event entries are skipped; "clear recent" is exposed via
   `clearRecentCommands` on the context).
-- `aethermind:command-palette:recent-searches` — last 10 non-empty queries,
+- `taskloom:command-palette:recent-searches` — last 10 non-empty queries,
   shown as the "Recent Searches" group on open.
 
 ## Validation

@@ -47,7 +47,7 @@ export type TimeContext = {
 };
 
 export type SystemContext = {
-  readonly application: "AetherMind";
+  readonly application: "Taskloom";
   readonly environment: string;
   readonly version: string;
 };

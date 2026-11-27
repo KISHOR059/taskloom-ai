@@ -1,4 +1,4 @@
-# AetherMind API Documentation
+# Taskloom API Documentation
 
 This directory is reserved for API documentation and future OpenAPI
 specifications.
@@ -19,7 +19,7 @@ The endpoint returns the standard success response envelope:
   "message": "Health check successful",
   "data": {
     "status": "ok",
-    "service": "aethermind-api",
+    "service": "taskloom-api",
     "version": "1.0.0"
   }
 }

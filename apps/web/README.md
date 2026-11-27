@@ -1,6 +1,6 @@
-# AetherMind Web
+# Taskloom Web
 
-The AetherMind frontend is a React, TypeScript, and Vite application.
+The Taskloom frontend is a React, TypeScript, and Vite application.
 
 ## Development
 

@@ -48,4 +48,4 @@ export const DEFAULT_OFFLINE_VOICE_SETTINGS: OfflineVoiceSettings = {
   echoCancellation: true,
 };
 
-export const OFFLINE_VOICE_SETTINGS_KEY = "aethermind_offline_voice_settings";
+export const OFFLINE_VOICE_SETTINGS_KEY = "taskloom_offline_voice_settings";

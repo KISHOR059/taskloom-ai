@@ -5,7 +5,7 @@ export default defineConfig({
     environment: "node",
     env: {
       NODE_ENV: "test",
-      MONGODB_URI: "mongodb://127.0.0.1:27017/aethermind_test",
+      MONGODB_URI: "mongodb://127.0.0.1:27017/taskloom_test",
     },
     fileParallelism: false,
     hookTimeout: 30_000,

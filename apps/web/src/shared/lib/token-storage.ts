@@ -1,4 +1,4 @@
-const ACCESS_TOKEN_KEY = "aethermind_access_token";
+const ACCESS_TOKEN_KEY = "taskloom_access_token";
 
 export const tokenStorage = {
   get(): string | null {

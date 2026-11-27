@@ -15,6 +15,7 @@ import WeeklyReviewDialog from "@/features/ai/WeeklyReviewDialog";
 import { Button } from "@/shared/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/components/ui/card";
 import { Input } from "@/shared/components/ui/input";
+import { openAssistantWidget } from "@/features/assistant/assistant-events";
 
 export function DashboardAICard() {
   const navigate = useNavigate();
@@ -25,10 +26,12 @@ export function DashboardAICard() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (prompt.trim()) {
-      navigate(`/assistant?q=${encodeURIComponent(prompt.trim())}`);
+    const trimmed = prompt.trim();
+    if (trimmed) {
+      openAssistantWidget(trimmed);
+      setPrompt("");
     } else {
-      navigate("/assistant");
+      openAssistantWidget();
     }
   };
 
@@ -42,7 +45,7 @@ export function DashboardAICard() {
             </div>
             <div>
               <CardTitle className="text-xs font-bold uppercase tracking-wider text-foreground flex items-center gap-1.5">
-                AetherMind AI
+                Taskloom AI
                 <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
               </CardTitle>
             </div>
@@ -51,7 +54,7 @@ export function DashboardAICard() {
           <Button
             variant="ghost"
             size="xs"
-            onClick={() => navigate("/assistant")}
+            onClick={() => openAssistantWidget()}
             className="text-[11px] font-semibold text-muted-foreground hover:text-foreground gap-1 -mr-1 h-6"
           >
             Open Chat
@@ -68,7 +71,7 @@ export function DashboardAICard() {
             <Input
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
-              placeholder="Ask AetherMind anything or create a task..."
+              placeholder="Ask Taskloom anything or create a task..."
               className="h-8 text-xs pl-3 pr-8 bg-background border-border/70 focus-visible:ring-1"
             />
             <button

@@ -68,14 +68,14 @@ export function MessageBubble({ message, userName }: MessageBubbleProps) {
 
   if (isUser) {
     return (
-      <div className="group flex items-start justify-end gap-2.5 py-2 animate-in fade-in duration-150">
+      <div className="group flex items-start justify-end gap-2.5 py-1.5 animate-in fade-in slide-in-from-bottom-1 duration-200">
         <div className="flex flex-col items-end max-w-[85%] sm:max-w-[75%] space-y-1">
-          <div className="rounded-2xl rounded-tr-sm bg-primary px-4 py-2.5 text-xs sm:text-sm text-primary-foreground shadow-xs">
+          <div className="rounded-2xl rounded-tr-sm bg-primary px-4 py-2.5 text-xs sm:text-sm text-primary-foreground shadow-sm ring-1 ring-primary/20">
             <p className="whitespace-pre-wrap leading-relaxed break-words">{message.content}</p>
           </div>
         </div>
-        <Avatar className="size-7 shrink-0 border border-primary/30 mt-0.5">
-          <AvatarFallback className="bg-primary text-primary-foreground text-[10px] font-semibold">
+        <Avatar className="size-8 shrink-0 border border-primary/30 shadow-2xs mt-0.5">
+          <AvatarFallback className="bg-primary text-primary-foreground text-[11px] font-semibold">
             {initials}
           </AvatarFallback>
         </Avatar>
@@ -83,20 +83,20 @@ export function MessageBubble({ message, userName }: MessageBubbleProps) {
     );
   }
 
-  // AI Assistant response: Structured workspace content
+  // AI Assistant response: Elevated editorial card surface
   return (
-    <div className="group relative flex items-start gap-3 py-3 text-left animate-in fade-in duration-200">
-      <div className="flex size-7 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary border border-primary/20 mt-0.5">
-        <Bot className="size-3.5" />
+    <div className="group relative flex items-start gap-3 rounded-2xl border border-border/50 bg-card/70 px-4 py-3.5 text-left shadow-2xs transition-colors hover:border-border/80 hover:bg-card/90 animate-in fade-in slide-in-from-bottom-1 duration-200">
+      <div className="flex size-8 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20 mt-0.5">
+        <Bot className="size-4" />
       </div>
 
       <div className="flex-1 min-w-0 space-y-2">
         {/* Author & Status bar */}
         <div className="flex items-center justify-between gap-2 text-xs">
           <div className="flex items-center gap-2">
-            <span className="font-semibold text-foreground tracking-tight text-xs">AetherMind</span>
+            <span className="font-semibold text-foreground tracking-tight text-xs">Taskloom</span>
             {isSpeaking && (
-              <span className="flex items-center gap-1 text-[11px] font-medium text-primary animate-pulse">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-medium text-primary animate-pulse">
                 <span className="size-1.5 rounded-full bg-primary animate-ping" />
                 Speaking…
               </span>
@@ -104,16 +104,16 @@ export function MessageBubble({ message, userName }: MessageBubbleProps) {
           </div>
 
           {/* Action buttons toolbar */}
-          <div className="flex items-center gap-1 opacity-80 group-hover:opacity-100 transition-opacity">
+          <div className="flex items-center gap-1 opacity-75 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity">
             <Tooltip>
               <TooltipTrigger asChild>
                 <button
                   type="button"
                   onClick={handleCopyText}
                   aria-label={copied ? "Copied" : "Copy response"}
-                  className="flex size-6 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+                  className="flex size-7 items-center justify-center rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
                 >
-                  {copied ? <Check className="size-3 text-emerald-500" /> : <Copy className="size-3" />}
+                  {copied ? <Check className="size-3.5 text-emerald-500" /> : <Copy className="size-3.5" />}
                 </button>
               </TooltipTrigger>
               <TooltipContent side="top">
@@ -128,13 +128,13 @@ export function MessageBubble({ message, userName }: MessageBubbleProps) {
                   onClick={handleToggleSpeak}
                   aria-label={isSpeaking ? "Stop speaking" : "Speak response"}
                   className={cn(
-                    "flex size-6 items-center justify-center rounded-md transition-colors",
+                    "flex size-7 items-center justify-center rounded-lg transition-colors",
                     isSpeaking
                       ? "text-primary bg-primary/10"
                       : "text-muted-foreground hover:bg-muted hover:text-foreground",
                   )}
                 >
-                  {isSpeaking ? <VolumeX className="size-3" /> : <Volume2 className="size-3" />}
+                  {isSpeaking ? <VolumeX className="size-3.5" /> : <Volume2 className="size-3.5" />}
                 </button>
               </TooltipTrigger>
               <TooltipContent side="top">
@@ -150,13 +150,13 @@ export function MessageBubble({ message, userName }: MessageBubbleProps) {
                     onClick={() => setShowMetrics(!showMetrics)}
                     aria-label="Toggle metrics"
                     className={cn(
-                      "flex size-6 items-center justify-center rounded-md transition-colors",
+                      "flex size-7 items-center justify-center rounded-lg transition-colors",
                       showMetrics
                         ? "text-primary bg-primary/10"
                         : "text-muted-foreground hover:bg-muted hover:text-foreground",
                     )}
                   >
-                    <Activity className="size-3" />
+                    <Activity className="size-3.5" />
                   </button>
                 </TooltipTrigger>
                 <TooltipContent side="top">
@@ -174,16 +174,16 @@ export function MessageBubble({ message, userName }: MessageBubbleProps) {
 
         {/* Execution Metrics detail pill */}
         {import.meta.env.DEV && message.metrics && showMetrics && (
-          <div className="flex flex-wrap items-center gap-2 pt-1 text-[10px] text-muted-foreground font-mono">
-            <span className="inline-flex items-center gap-1 rounded bg-muted/60 px-2 py-0.5 border border-border/40">
+          <div className="flex flex-wrap items-center gap-2 pt-1.5 text-[10px] text-muted-foreground font-mono">
+            <span className="inline-flex items-center gap-1 rounded-md bg-muted/70 px-2 py-0.5 border border-border/50">
               <Sparkles className="size-2.5 text-primary" />
               {message.metrics.provider} • {message.metrics.model}
             </span>
-            <span className="rounded bg-muted/60 px-2 py-0.5 border border-border/40">
+            <span className="rounded-md bg-muted/70 px-2 py-0.5 border border-border/50 tabular-nums">
               {message.metrics.executionTime}ms
             </span>
             {message.metrics.tokenUsage && (
-              <span className="rounded bg-muted/60 px-2 py-0.5 border border-border/40">
+              <span className="rounded-md bg-muted/70 px-2 py-0.5 border border-border/50 tabular-nums">
                 {message.metrics.tokenUsage.totalTokens} tokens
               </span>
             )}

@@ -3,7 +3,9 @@ import {
   useEffect,
   useRef,
   useCallback,
+  useId,
   type ChangeEvent,
+  type FormEvent,
   type KeyboardEvent,
 } from "react";
 import { ArrowUp, Sparkles, SlidersHorizontal, Mic, MicOff } from "lucide-react";
@@ -36,7 +38,9 @@ export function ChatInput({
   const [input, setInput] = useState("");
   const [settingsOpen, setSettingsOpen] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
   const prevMsgRef = useRef<string | undefined>(undefined);
+  const inputId = useId();
 
   const [voiceSettings, setVoiceSettings] = useState<VoiceSettings>(() => {
     try {
@@ -71,8 +75,11 @@ export function ChatInput({
 
   const { isSpeaking, voices, speak, stop: stopSpeaking } = useSpeechSynthesis();
 
-  // Resize textarea on content change
-  const adjustTextareaHeight = useCallback(() => {
+  // Progressive fallback for browsers without CSS field-sizing: content
+  const adjustTextareaHeightFallback = useCallback(() => {
+    if (typeof CSS !== "undefined" && CSS.supports("field-sizing", "content")) {
+      return;
+    }
     const textarea = textareaRef.current;
     if (!textarea) return;
     textarea.style.height = "auto";
@@ -81,8 +88,8 @@ export function ChatInput({
   }, []);
 
   useEffect(() => {
-    adjustTextareaHeight();
-  }, [input, transcript, adjustTextareaHeight]);
+    adjustTextareaHeightFallback();
+  }, [input, transcript, adjustTextareaHeightFallback]);
 
   // Display recognition errors
   useEffect(() => {
@@ -128,7 +135,10 @@ export function ChatInput({
     onSendMessage(trimmed);
     setInput("");
     clearTranscript();
-    if (textareaRef.current) {
+    if (
+      textareaRef.current &&
+      (typeof CSS === "undefined" || !CSS.supports("field-sizing", "content"))
+    ) {
       textareaRef.current.style.height = "auto";
     }
   };
@@ -156,7 +166,8 @@ export function ChatInput({
     }
   };
 
-  const handleSend = () => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (isListening) {
       stopListening();
     }
@@ -164,10 +175,14 @@ export function ChatInput({
     handleSendText(textToSubmit);
   };
 
+  // IME-safe Enter-to-submit (guards native isComposing and Safari keyCode === 229)
   const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
-      handleSend();
+      if (e.nativeEvent.isComposing || e.keyCode === 229) {
+        return;
+      }
+      formRef.current?.requestSubmit();
     }
   };
 
@@ -182,7 +197,7 @@ export function ChatInput({
     <div className={cn("relative w-full", className)}>
       {/* Listening status indicator */}
       {isListening && (
-        <div className="mb-2 flex items-center justify-between rounded-lg border border-primary/30 bg-primary/5 px-3 py-1.5 text-xs text-primary animate-in fade-in">
+        <div className="mb-2 flex items-center justify-between rounded-xl border border-primary/30 bg-primary/10 px-3.5 py-2 text-xs text-primary backdrop-blur-sm animate-in fade-in">
           <div className="flex items-center gap-2 font-medium">
             <span className="relative flex size-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
@@ -193,16 +208,24 @@ export function ChatInput({
           <button
             type="button"
             onClick={stopListening}
-            className="text-[11px] font-semibold text-primary underline hover:opacity-80 transition-opacity"
+            className="text-[11px] font-semibold text-primary underline underline-offset-2 hover:opacity-80 transition-opacity"
           >
             Done
           </button>
         </div>
       )}
 
-      {/* Floating Composer Container */}
-      <div className="relative rounded-2xl border border-border/80 bg-card/90 backdrop-blur-md shadow-lg shadow-black/5 dark:shadow-black/20 transition-all duration-200 focus-within:border-primary/50 focus-within:ring-2 focus-within:ring-primary/10">
+      {/* Floating Glassmorphic Composer Form */}
+      <form
+        ref={formRef}
+        onSubmit={handleSubmit}
+        className="relative rounded-2xl border border-border/80 bg-card/95 backdrop-blur-md shadow-lg shadow-black/5 dark:shadow-black/25 transition-all duration-200 focus-within:border-primary/50 focus-within:ring-2 focus-within:ring-primary/15"
+      >
+        <label htmlFor={inputId} className="sr-only">
+          Ask Taskloom
+        </label>
         <textarea
+          id={inputId}
           ref={textareaRef}
           value={displayInputValue}
           onChange={handleChange}
@@ -210,13 +233,11 @@ export function ChatInput({
           placeholder={
             isListening
               ? "Listening... speaking will transcribe here..."
-              : "Ask AetherMind anything about your tasks, schedule, or productivity..."
+              : "Ask Taskloom anything about your tasks, schedule, or productivity..."
           }
           disabled={disabled}
           rows={1}
-          aria-label="Ask AetherMind"
-          className="w-full resize-none bg-transparent px-4 pt-3.5 pb-2 text-xs sm:text-sm text-foreground placeholder:text-muted-foreground/70 outline-none leading-relaxed overflow-y-auto"
-          style={{ minHeight: "44px", maxHeight: "160px" }}
+          className="assistant-textarea-autosize assistant-scroller resize-none bg-transparent px-4 pt-3.5 pb-2 text-xs sm:text-sm text-foreground placeholder:text-muted-foreground/70 outline-none leading-relaxed overflow-y-auto"
         />
 
         {/* Composer Controls Bar */}
@@ -234,7 +255,7 @@ export function ChatInput({
                     disabled={disabled}
                     aria-label={isListening ? "Stop voice input" : "Voice input"}
                     className={cn(
-                      "size-8 rounded-lg transition-colors",
+                      "size-8 rounded-xl transition-colors",
                       isListening
                         ? "bg-destructive text-destructive-foreground hover:bg-destructive/90 animate-pulse"
                         : "text-muted-foreground hover:text-foreground hover:bg-muted/70",
@@ -258,7 +279,7 @@ export function ChatInput({
                   size="icon"
                   onClick={() => setSettingsOpen(true)}
                   aria-label="Voice settings"
-                  className="size-8 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/70"
+                  className="size-8 rounded-xl text-muted-foreground hover:text-foreground hover:bg-muted/70"
                 >
                   <SlidersHorizontal className="size-3.5" />
                 </Button>
@@ -269,22 +290,21 @@ export function ChatInput({
             </Tooltip>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2.5">
             <span className="hidden sm:inline-block text-[11px] text-muted-foreground/60 select-none">
               <kbd className="font-sans">↵</kbd> send • <kbd className="font-sans">shift+↵</kbd> newline
             </span>
 
-            {/* Send Button */}
+            {/* Explicit Submit Button */}
             <Button
-              type="button"
-              onClick={handleSend}
+              type="submit"
               disabled={!canSend}
               size="icon"
               aria-label="Send prompt"
               className={cn(
                 "size-8 rounded-xl transition-all duration-200",
                 canSend
-                  ? "bg-primary text-primary-foreground shadow-xs hover:opacity-90"
+                  ? "bg-primary text-primary-foreground shadow-sm hover:opacity-90 active:scale-95"
                   : "bg-muted text-muted-foreground/40 cursor-not-allowed",
               )}
             >
@@ -296,7 +316,7 @@ export function ChatInput({
             </Button>
           </div>
         </div>
-      </div>
+      </form>
 
       {/* Voice Settings Dialog */}
       <VoiceSettingsDialog

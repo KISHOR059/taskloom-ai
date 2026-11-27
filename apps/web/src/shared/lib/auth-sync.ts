@@ -1,7 +1,7 @@
 export type AuthSyncEvent = "logout" | "session-expired";
 
-const CHANNEL_NAME = "aethermind_auth_sync";
-const STORAGE_KEY = "aethermind_auth_sync_event";
+const CHANNEL_NAME = "taskloom_auth_sync";
+const STORAGE_KEY = "taskloom_auth_sync_event";
 
 type AuthSyncPayload = {
   type: AuthSyncEvent;

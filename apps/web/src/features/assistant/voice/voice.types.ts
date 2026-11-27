@@ -23,7 +23,7 @@ export const DEFAULT_VOICE_SETTINGS: VoiceSettings = {
   autoListen: false,
 };
 
-export const VOICE_SETTINGS_STORAGE_KEY = "aethermind_voice_settings";
+export const VOICE_SETTINGS_STORAGE_KEY = "taskloom_voice_settings";
 
 export type SpeechRecognitionErrorCode =
   | "no-speech"

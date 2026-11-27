@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   BarChart3,
   Bot,
@@ -13,6 +12,7 @@ import WeeklyReviewDialog from "@/features/ai/WeeklyReviewDialog";
 import TaskBreakdownDialog from "@/features/ai/TaskBreakdownDialog";
 import type { Task } from "@/features/tasks/task.types";
 import { Button } from "@/shared/components/ui/button";
+import { openAssistantWidget } from "@/features/assistant/assistant-events";
 import { Card, CardContent } from "@/shared/components/ui/card";
 import {
   Dialog,
@@ -26,7 +26,6 @@ export interface QuickActionsProps {
 }
 
 export function QuickActions({ recentTasks = [] }: QuickActionsProps) {
-  const navigate = useNavigate();
   const [weeklyReviewOpen, setWeeklyReviewOpen] = useState(false);
   const [breakdownTask, setBreakdownTask] = useState<Task | null>(null);
   const [breakdownPickerOpen, setBreakdownPickerOpen] = useState(false);
@@ -70,7 +69,7 @@ export function QuickActions({ recentTasks = [] }: QuickActionsProps) {
           <Button
             variant="outline"
             size="sm"
-            onClick={() => navigate("/assistant")}
+            onClick={() => openAssistantWidget()}
             className="gap-2 transition-all hover:bg-primary/10 hover:border-primary/30 text-xs"
           >
             <Bot className="size-4 text-indigo-500" />

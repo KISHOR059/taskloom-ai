@@ -1,5 +1,4 @@
 import {
-  Bot,
   CalendarDays,
   CheckSquare,
   LayoutDashboard,
@@ -43,13 +42,13 @@ import {
 import { cn } from "@/shared/lib/cn";
 import { useAuth } from "@/features/auth/hooks/auth.context";
 import SessionManager from "@/features/auth/session/SessionManager";
-import { AetherMindLogo } from "@/shared/components/AetherMindLogo";
+import { TaskloomLogo } from "@/shared/components/TaskloomLogo";
+import AssistantFloatingWidget from "@/features/assistant/AssistantFloatingWidget";
 
 const mainNavigationItems = [
   { label: "Dashboard", icon: LayoutDashboard, to: "/dashboard" },
   { label: "Tasks", icon: CheckSquare, to: "/tasks" },
   { label: "Calendar", icon: CalendarDays, to: "/calendar" },
-  { label: "AI Assistant", icon: Bot, to: "/assistant" },
 ];
 
 const bottomNavigationItems = [
@@ -91,7 +90,7 @@ function Sidebar() {
   return (
     <div className="flex h-full flex-col">
       <div className="flex h-16 shrink-0 items-center px-6 border-b border-border/40">
-        <AetherMindLogo size="md" />
+        <TaskloomLogo size="md" />
       </div>
       <ScrollArea className="flex-1 px-4 py-6">
         <SidebarNavigation items={mainNavigationItems} />
@@ -212,7 +211,7 @@ function AppLayout() {
                 </SheetContent>
               </Sheet>
 
-              <AetherMindLogo size="sm" textClassName="hidden sm:inline-block" />
+              <TaskloomLogo size="sm" textClassName="hidden sm:inline-block" />
             </div>
 
             <div className="max-w-md flex-1">
@@ -222,8 +221,8 @@ function AppLayout() {
               <Badge
                 variant="outline"
                 className="hidden sm:inline-flex h-5 px-1.5 py-0 text-[10px] font-semibold uppercase tracking-wider rounded-full border-primary/25 bg-primary/10 text-primary select-none cursor-default"
-                title="AetherMind is currently in beta"
-                aria-label="AetherMind is currently in beta"
+                title="Taskloom is currently in beta"
+                aria-label="Taskloom is currently in beta"
               >
                 BETA
               </Badge>
@@ -242,6 +241,7 @@ function AppLayout() {
           </main>
         </div>
         <SessionManager />
+        <AssistantFloatingWidget />
       </div>
     </CommandPaletteProvider>
   );

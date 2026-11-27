@@ -8,6 +8,7 @@ import { Palette, Search } from "lucide-react";
 import { useTheme } from "@/app/ThemeProvider";
 import { useMarkAllAsRead } from "@/features/notifications";
 import { openNotificationsDrawer } from "@/features/notifications/notifications-events";
+import { openAssistantWidget } from "@/features/assistant/assistant-events";
 import { notify } from "@/shared/lib/notifications";
 
 import {
@@ -115,6 +116,7 @@ export function CommandPaletteDialog({ open, onOpenChange }: CommandPaletteDialo
         setActiveIndex(0);
       },
       openTaskBreakdown,
+      openAssistant: () => openAssistantWidget(),
       openNotifications: (readFilter) => openNotificationsDrawer(readFilter),
       markAllRead: () =>
         markAllRead.mutate(undefined, {

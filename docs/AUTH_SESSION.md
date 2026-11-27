@@ -1,11 +1,11 @@
 # Authentication & Session Management
 
-This document describes the AetherMind authentication architecture and session
+This document describes the Taskloom authentication architecture and session
 lifecycle after the introduction of server-side session management.
 
 ## Overview
 
-AetherMind uses a **stateless access token + stateful refresh session** model:
+Taskloom uses a **stateless access token + stateful refresh session** model:
 
 - **Access token** (`JWT`): short-lived (default 15m), stateless, carries
   `{ sub, role }`. It is stored in `localStorage` on the client and sent as

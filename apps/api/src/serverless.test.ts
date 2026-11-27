@@ -68,7 +68,7 @@ describe("Serverless Express API Entrypoint", () => {
 
     expect(response.status).toBe(200);
     expect(response.body.success).toBe(true);
-    expect(response.body.data.service).toBe("aethermind-api");
+    expect(response.body.data.service).toBe("taskloom-api");
     expect(response.body.data.version).toBe("1.0.0");
   });
 });

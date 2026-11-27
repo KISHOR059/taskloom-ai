@@ -1,6 +1,6 @@
 # AI Module Architecture
 
-An enterprise-grade, modular, and cloud-first Artificial Intelligence architecture built for **AetherMind AI**. This system powers intelligent productivity features—such as **Plan My Day**, **Task Breakdown**, **Task Prioritization**, **Smart Reschedule**, **Weekly Review**, **Productivity Insights**, and **AI Assistant Chat**—by contextually assembling user task data, engineering strict system prompts, orchestrating cloud LLM inference with **Google Gemini 3.5 Flash**, validating output against strict Zod schemas, and providing deterministic retry mechanisms and rich UI states.
+An enterprise-grade, modular, and cloud-first Artificial Intelligence architecture built for **Taskloom AI**. This system powers intelligent productivity features—such as **Plan My Day**, **Task Breakdown**, **Task Prioritization**, **Smart Reschedule**, **Weekly Review**, **Productivity Insights**, and **AI Assistant Chat**—by contextually assembling user task data, engineering strict system prompts, orchestrating cloud LLM inference with **Google Gemini 3.5 Flash**, validating output against strict Zod schemas, and providing deterministic retry mechanisms and rich UI states.
 
 ---
 
@@ -36,7 +36,7 @@ An enterprise-grade, modular, and cloud-first Artificial Intelligence architectu
 ## Overview
 
 ### Why AI Was Introduced
-Modern task management applications often suffer from user cognitive overload: users accumulate extensive backlogs of tasks but struggle to prioritize, schedule, and execute them effectively. AetherMind AI introduces an autonomous AI cognitive layer that converts disorganized task backlogs into structured, actionable, and context-aware daily execution plans.
+Modern task management applications often suffer from user cognitive overload: users accumulate extensive backlogs of tasks but struggle to prioritize, schedule, and execute them effectively. Taskloom AI introduces an autonomous AI cognitive layer that converts disorganized task backlogs into structured, actionable, and context-aware daily execution plans.
 
 ### Current Features Powered by AI
 - **Plan My Day**: Analyzes active tasks, due dates, priority tiers, estimated completion times, and temporal context to generate an optimized daily schedule, productivity score, top priorities, and actionable recommendations.
@@ -449,7 +449,7 @@ Structured JSON logs capture execution timing and token telemetry:
 ## Historical Migration Note
 
 > [!NOTE]
-> *Historical Architecture Note*: Earlier iterations of AetherMind supported local model inference via Ollama (`llama3.2:3b`) alongside a proxy fallback orchestrator (`FallbackProvider`). To optimize response latency (reducing task execution times from ~30s down to ~2s), simplify operational maintenance, and enable serverless cloud deployments, the architecture was migrated to **Google Gemini 3.5 Flash exclusive inference**.
+> *Historical Architecture Note*: Earlier iterations of Taskloom supported local model inference via Ollama (`llama3.2:3b`) alongside a proxy fallback orchestrator (`FallbackProvider`). To optimize response latency (reducing task execution times from ~30s down to ~2s), simplify operational maintenance, and enable serverless cloud deployments, the architecture was migrated to **Google Gemini 3.5 Flash exclusive inference**.
 
 ---
 
@@ -465,4 +465,4 @@ Structured JSON logs capture execution timing and token telemetry:
 
 ## Conclusion
 
-This AI module architecture provides a production-grade, extensible, and high-performance foundation for **AetherMind AI**. By isolating LLM operations behind uniform provider abstractions, enforcing strict schema compliance with automatic retry logic, and leveraging cloud-native **Google Gemini 3.5 Flash** inference, the system delivers enterprise-grade reliability and lightning-fast user experiences.
+This AI module architecture provides a production-grade, extensible, and high-performance foundation for **Taskloom AI**. By isolating LLM operations behind uniform provider abstractions, enforcing strict schema compliance with automatic retry logic, and leveraging cloud-native **Google Gemini 3.5 Flash** inference, the system delivers enterprise-grade reliability and lightning-fast user experiences.

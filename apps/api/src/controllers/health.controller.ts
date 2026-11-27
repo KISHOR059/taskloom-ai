@@ -11,7 +11,7 @@ export async function getHealth(
     response,
     {
       status: "ok",
-      service: "aethermind-api",
+      service: "taskloom-api",
       version: "1.0.0",
     },
     MESSAGES.HEALTH_CHECK_SUCCESS,

@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import {
   AlertCircle,
   Bot,
@@ -24,6 +23,7 @@ import { Alert } from "@/shared/components/ui/alert";
 import { Button } from "@/shared/components/ui/button";
 import { Skeleton } from "@/shared/components/ui/skeleton";
 import { useAuth } from "@/features/auth/hooks/auth.context";
+import { openAssistantWidget } from "@/features/assistant/assistant-events";
 
 function getGreeting(name?: string) {
   const hour = new Date().getHours();
@@ -72,15 +72,14 @@ function DashboardPage() {
           />
 
           <Button
-            asChild
+            type="button"
             variant="outline"
             size="xs"
+            onClick={() => openAssistantWidget()}
             className="gap-1 text-xs font-semibold h-7"
           >
-            <Link to="/assistant">
-              <Bot className="size-3 text-primary" />
-              <span className="hidden sm:inline">AI Assistant</span>
-            </Link>
+            <Bot className="size-3 text-primary" />
+            <span className="hidden sm:inline">AI Assistant</span>
           </Button>
 
           <CreateTaskDialog

@@ -7,7 +7,7 @@ import { TaskModel, TaskPriority, TaskStatus } from "./modules/tasks/task.model.
 
 const PASSWORD_SALT_ROUNDS = 12;
 
-const SAMPLE_OWNER_EMAIL = "demo@aethermind.ai";
+const SAMPLE_OWNER_EMAIL = "demo@taskloom.ai";
 const SAMPLE_OWNER_PASSWORD = "DemoPassword123!";
 
 function daysFromNow(days: number): Date {

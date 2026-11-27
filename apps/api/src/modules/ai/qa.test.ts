@@ -17,7 +17,7 @@ import type { ITaskRepository } from "../tasks/task.repository.interface.js";
 import type { IUserRepository } from "../auth/user.repository.interface.js";
 import { TaskPriority, TaskStatus } from "../tasks/task.model.js";
 
-describe("AetherMind AI Production QA & Hardening Test Suite", () => {
+describe("Taskloom AI Production QA & Hardening Test Suite", () => {
   const userId = "507f1f77bcf86cd799439011";
   const otherUserId = "507f1f77bcf86cd799439022";
   const taskId = "607f1f77bcf86cd799439033";
@@ -496,7 +496,7 @@ describe("AetherMind AI Production QA & Hardening Test Suite", () => {
         status: "healthy",
         generateText: vi.fn().mockResolvedValue({
           text: JSON.stringify({
-            reply: "Your name is Jane Doe, and you are currently logged into AetherMind.",
+            reply: "Your name is Jane Doe, and you are currently logged into Taskloom.",
             suggestedActions: ["View My Tasks", "Plan My Day"],
           }),
           finishReason: "STOP",

@@ -20,7 +20,7 @@ export function DashboardEmptyState() {
             No tasks yet
           </h3>
           <p className="text-xs text-muted-foreground leading-relaxed">
-            Welcome to your AetherMind dashboard! Get started by adding your first task or using AI to plan your workday.
+            Welcome to your Taskloom dashboard! Get started by adding your first task or using AI to plan your workday.
           </p>
         </div>
 

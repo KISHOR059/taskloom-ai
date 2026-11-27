@@ -54,15 +54,15 @@ const envSchema = z.object({
     .string()
     .trim()
     .min(1, "MONGODB_URI must not be empty")
-    .default("mongodb://127.0.0.1:27017/aethermind"),
+    .default("mongodb://127.0.0.1:27017/taskloom"),
   JWT_ACCESS_SECRET: z
     .string()
     .min(32, "JWT_ACCESS_SECRET must contain at least 32 characters")
-    .default("aethermind-development-access-secret-change-me"),
+    .default("taskloom-development-access-secret-change-me"),
   JWT_REFRESH_SECRET: z
     .string()
     .min(32, "JWT_REFRESH_SECRET must contain at least 32 characters")
-    .default("aethermind-development-refresh-secret-change-me"),
+    .default("taskloom-development-refresh-secret-change-me"),
   JWT_ACCESS_EXPIRES_IN: durationString.default("15m"),
   JWT_REFRESH_EXPIRES_IN: durationString.default("7d"),
   SESSION_INACTIVITY_TIMEOUT_MS: positiveNumber.default(86_400_000),

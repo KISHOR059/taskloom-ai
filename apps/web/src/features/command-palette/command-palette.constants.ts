@@ -29,8 +29,8 @@ import type { LucideIcon } from "lucide-react";
 import type { CommandGroupId, PaletteCommand } from "./command-palette.types";
 
 export const COMMAND_PALETTE_STORAGE_KEYS = {
-  recentCommands: "aethermind:command-palette:recent-commands",
-  recentSearches: "aethermind:command-palette:recent-searches",
+  recentCommands: "taskloom:command-palette:recent-commands",
+  recentSearches: "taskloom:command-palette:recent-searches",
 } as const;
 
 export const RECENT_COMMANDS_LIMIT = 10;
@@ -110,7 +110,7 @@ export const NAVIGATION_COMMANDS: PaletteCommand[] = [
     label: "AI Assistant",
     group: "navigation",
     icon: Bot,
-    route: "/assistant",
+    action: "open-assistant",
     keywords: ["chat", "coach", "ai", "assistant"],
   },
   {
@@ -239,7 +239,7 @@ export const AI_COMMANDS: PaletteCommand[] = [
     label: "AI Assistant",
     group: "ai",
     icon: Bot,
-    route: "/assistant",
+    action: "open-assistant",
     keywords: ["chat", "ask", "coach", "ai"],
   },
 ];
