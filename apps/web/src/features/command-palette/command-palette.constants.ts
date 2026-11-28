@@ -10,6 +10,7 @@ import {
   CheckCheck,
   CheckCircle2,
   CheckSquare,
+  FileText,
   Flame,
   History,
   LayoutDashboard,
@@ -96,6 +97,14 @@ export const NAVIGATION_COMMANDS: PaletteCommand[] = [
     icon: CalendarDays,
     route: "/calendar",
     keywords: ["schedule", "agenda"],
+  },
+  {
+    id: "nav-notes",
+    label: "Notes",
+    group: "navigation",
+    icon: FileText,
+    route: "/notes",
+    keywords: ["notes", "meeting", "markdown", "scratchpad"],
   },
   {
     id: "nav-notifications",
