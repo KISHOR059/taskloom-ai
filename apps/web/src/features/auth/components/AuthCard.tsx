@@ -17,34 +17,31 @@ type AuthCardProps = {
  */
 function AuthCard({ title, description, footer, children }: AuthCardProps) {
   return (
-    <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-background px-3.5 py-6 sm:px-6 sm:py-10">
-      {/* Subtle ambient glow — very low opacity, visible in both modes */}
+    <main className="command-aurora-bg relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-background px-3.5 py-6 sm:px-6 sm:py-10">
+      {/* Subtle Command Center micro-grid */}
       <div
-        className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
+        className="command-grid-pattern pointer-events-none absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_at_center,black_35%,transparent_80%)]"
         aria-hidden="true"
-      >
-        <div className="absolute -bottom-32 -left-24 h-[400px] w-[400px] rounded-full bg-violet-500/[0.06] blur-[96px] dark:bg-violet-500/[0.10]" />
-        <div className="absolute -right-24 -top-20 h-[300px] w-[300px] rounded-full bg-violet-500/[0.04] blur-[80px] dark:bg-violet-500/[0.07]" />
-      </div>
+      />
 
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.26, ease: "easeOut" }}
-        className="w-full max-w-[480px]"
+        transition={{ duration: 0.24, ease: "easeOut" }}
+        className="w-full max-w-[460px]"
       >
         {/* Brand */}
-        <div className="mb-6 sm:mb-7 flex flex-col items-center gap-2 text-center">
+        <div className="mb-5 flex flex-col items-center gap-2 text-center">
           <TaskloomLogo size="lg" linkToHome={false} />
-          <p className="mt-1 text-[11px] font-medium tracking-[0.25em] text-muted-foreground/70 uppercase select-none">
-            Your intelligent productivity assistant
+          <p className="mt-0.5 text-[10px] font-semibold tracking-[0.22em] text-primary/80 uppercase select-none">
+            AI Command Workspace
           </p>
         </div>
 
-        {/* Card */}
+        {/* High-Contrast Card */}
         <div className={cn(
-          "rounded-2xl border border-border/60 bg-card p-5 sm:p-8 shadow-sm",
-          "dark:border-border/40 dark:shadow-none",
+          "rounded-2xl border border-border/80 border-t-2 border-t-primary bg-card/95 p-5 sm:p-7 backdrop-blur-md shadow-xl shadow-primary/5",
+          "dark:shadow-black/40",
         )}>
           {/* Header */}
           <div className="mb-7 text-center">

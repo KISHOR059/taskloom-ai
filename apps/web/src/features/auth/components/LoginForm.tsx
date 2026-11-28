@@ -78,34 +78,31 @@ function LoginForm() {
   };
 
   return (
-    <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-background px-3.5 py-6 sm:px-6 sm:py-10">
-      {/* Very subtle purple ambient glow — adapts via opacity */}
+    <main className="command-aurora-bg relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-background px-3.5 py-6 sm:px-6 sm:py-10">
+      {/* Subtle Command Center micro-grid */}
       <div
-        className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
+        className="command-grid-pattern pointer-events-none absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_at_center,black_35%,transparent_80%)]"
         aria-hidden="true"
-      >
-        <div className="absolute -bottom-32 -left-24 h-[400px] w-[400px] rounded-full bg-violet-500/[0.06] blur-[96px] dark:bg-violet-500/[0.10]" />
-        <div className="absolute -right-24 -top-20 h-[300px] w-[300px] rounded-full bg-violet-500/[0.04] blur-[80px] dark:bg-violet-500/[0.07]" />
-      </div>
+      />
 
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.26, ease: "easeOut" }}
-        className="w-full max-w-[420px]"
+        transition={{ duration: 0.24, ease: "easeOut" }}
+        className="w-full max-w-[410px]"
       >
         {/* ── Brand block ── */}
-        <div className="mb-6 sm:mb-7 flex flex-col items-center gap-2 text-center">
+        <div className="mb-5 flex flex-col items-center gap-2 text-center">
           <TaskloomLogo size="lg" linkToHome={false} />
-          <p className="mt-1 text-[11px] font-medium tracking-[0.25em] text-muted-foreground/70 uppercase select-none">
-            Your intelligent productivity assistant
+          <p className="mt-0.5 text-[10px] font-semibold tracking-[0.22em] text-primary/80 uppercase select-none">
+            AI Command Workspace
           </p>
         </div>
 
-        {/* ── Card ── */}
+        {/* ── High-Contrast Card ── */}
         <div className={cn(
-          "rounded-2xl border border-border/60 bg-card p-5 sm:p-8 shadow-sm",
-          "dark:border-border/40 dark:shadow-none",
+          "rounded-2xl border border-border/80 border-t-2 border-t-primary bg-card/95 p-5 sm:p-7 backdrop-blur-md shadow-xl shadow-primary/5",
+          "dark:shadow-black/40",
         )}>
           {/* Header */}
           <div className="mb-7 text-center">
@@ -156,7 +153,7 @@ function LoginForm() {
                   aria-describedby={errors.email ? "login-email-error" : undefined}
                   className={cn(
                     "h-11 pl-10 text-sm",
-                    "focus-visible:ring-violet-500/30 focus-visible:border-violet-500/60",
+                    "focus-visible:ring-primary/30 focus-visible:border-primary/60",
                     errors.email && "border-destructive/60 focus-visible:border-destructive focus-visible:ring-destructive/20",
                   )}
                   {...register("email", {
@@ -196,7 +193,7 @@ function LoginForm() {
                   aria-describedby={errors.password ? "login-password-error" : undefined}
                   className={cn(
                     "h-11 pl-10 pr-10 text-sm",
-                    "focus-visible:ring-violet-500/30 focus-visible:border-violet-500/60",
+                    "focus-visible:ring-primary/30 focus-visible:border-primary/60",
                     errors.password && "border-destructive/60 focus-visible:border-destructive focus-visible:ring-destructive/20",
                   )}
                   {...register("password", {
@@ -236,7 +233,7 @@ function LoginForm() {
                   type="checkbox"
                   checked={rememberMe}
                   onChange={(e) => setRememberMe(e.target.checked)}
-                  className="size-[15px] cursor-pointer rounded accent-black dark:accent-white"
+                  className="size-[15px] cursor-pointer rounded accent-primary"
                 />
                 <span className="text-xs text-muted-foreground">Remember me</span>
               </label>
@@ -254,13 +251,10 @@ function LoginForm() {
               type="submit"
               disabled={isSubmitting}
               className={cn(
-                "group h-11 w-full rounded-xl font-semibold text-[15px] tracking-wide",
-                "bg-foreground text-background",
-                "hover:bg-foreground/90",
-                "dark:bg-foreground dark:text-background dark:hover:bg-foreground/90",
-                "border border-transparent hover:border-violet-500/40",
-                "transition-all duration-200 active:scale-[0.985]",
-                "focus-visible:ring-violet-500/30",
+                "group h-10 w-full rounded-xl font-semibold text-sm tracking-wide",
+                "bg-primary text-primary-foreground shadow-md shadow-primary/20",
+                "hover:bg-primary/90",
+                "transition-all duration-150 active:scale-[0.985]",
               )}
             >
               {isSubmitting ? (

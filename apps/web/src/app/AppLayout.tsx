@@ -1,12 +1,15 @@
 import {
   CalendarDays,
   CheckSquare,
+  FileText,
   LayoutDashboard,
   Menu,
+  PanelLeftClose,
+  PanelLeftOpen,
   Search,
   Settings,
 } from "lucide-react";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 
 import ThemeToggle from "@/features/theme/ThemeToggle";
@@ -19,7 +22,6 @@ import {
   useNotificationEffects,
 } from "@/features/notifications";
 import RouteLoading from "@/app/RouteLoading";
-import { env } from "@/shared/config/env";
 import { Avatar, AvatarFallback } from "@/shared/components/ui/avatar";
 import { Badge } from "@/shared/components/ui/badge";
 import { Button } from "@/shared/components/ui/button";
@@ -39,6 +41,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/shared/components/ui/sheet";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/components/ui/tooltip";
 import { cn } from "@/shared/lib/cn";
 import { useAuth } from "@/features/auth/hooks/auth.context";
 import SessionManager from "@/features/auth/session/SessionManager";
@@ -49,6 +52,7 @@ const mainNavigationItems = [
   { label: "Dashboard", icon: LayoutDashboard, to: "/dashboard" },
   { label: "Tasks", icon: CheckSquare, to: "/tasks" },
   { label: "Calendar", icon: CalendarDays, to: "/calendar" },
+  { label: "Notes", icon: FileText, to: "/notes" },
 ];
 
 const bottomNavigationItems = [
@@ -57,46 +61,125 @@ const bottomNavigationItems = [
 
 function SidebarNavigation({
   items,
+  collapsed = false,
   ariaLabel = "Primary navigation",
 }: {
   items: Array<{ label: string; icon: React.ComponentType<{ className?: string }>; to: string }>;
+  collapsed?: boolean;
   ariaLabel?: string;
 }) {
   return (
-    <nav aria-label={ariaLabel} className="space-y-1.5">
-      {items.map(({ label, icon: Icon, to }) => (
-        <NavLink
-          key={label}
-          to={to}
-          end={to === "/"}
-          className={({ isActive }) =>
-            cn(
-              "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200",
-              isActive
-                ? "bg-primary text-primary-foreground shadow-sm font-semibold"
-                : "text-muted-foreground hover:bg-accent/80 hover:text-accent-foreground",
-            )
-          }
-        >
-          <Icon className="size-4 shrink-0" />
-          <span>{label}</span>
-        </NavLink>
-      ))}
+    <nav aria-label={ariaLabel} className="space-y-1">
+      {items.map(({ label, icon: Icon, to }) => {
+        const linkEl = (
+          <NavLink
+            key={label}
+            to={to}
+            end={to === "/"}
+            aria-label={collapsed ? label : undefined}
+            className={({ isActive }) =>
+              cn(
+                "flex items-center rounded-lg text-xs font-medium transition-all duration-150",
+                collapsed ? "justify-center p-2.5" : "gap-2.5 px-3 py-2",
+                isActive
+                  ? "bg-primary text-primary-foreground shadow-sm shadow-primary/20 font-semibold"
+                  : "text-muted-foreground hover:bg-accent/90 hover:text-accent-foreground",
+              )
+            }
+          >
+            <Icon className="size-4 shrink-0" />
+            {!collapsed && <span className="truncate">{label}</span>}
+          </NavLink>
+        );
+
+        if (collapsed) {
+          return (
+            <Tooltip key={label}>
+              <TooltipTrigger asChild>{linkEl}</TooltipTrigger>
+              <TooltipContent side="right">
+                <p className="text-xs font-medium">{label}</p>
+              </TooltipContent>
+            </Tooltip>
+          );
+        }
+
+        return linkEl;
+      })}
     </nav>
   );
 }
 
-function Sidebar() {
+function Sidebar({
+  collapsed = false,
+  onToggleCollapse,
+}: {
+  collapsed?: boolean;
+  onToggleCollapse?: () => void;
+}) {
   return (
-    <div className="flex h-full flex-col">
-      <div className="flex h-16 shrink-0 items-center px-6 border-b border-border/40">
-        <TaskloomLogo size="md" />
+    <div className="flex h-full flex-col bg-sidebar/95">
+      <div
+        className={cn(
+          "flex h-14 shrink-0 items-center border-b border-sidebar-border/80",
+          collapsed ? "justify-center px-2" : "justify-between px-4",
+        )}
+      >
+        <TaskloomLogo size="sm" iconOnly={collapsed} />
+        {onToggleCollapse && !collapsed && (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                onClick={onToggleCollapse}
+                aria-label="Collapse sidebar rail"
+                className="size-7 rounded-lg text-muted-foreground hover:text-foreground"
+              >
+                <PanelLeftClose className="size-3.5" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent side="right">
+              <p className="text-xs">Collapse rail</p>
+            </TooltipContent>
+          </Tooltip>
+        )}
       </div>
-      <ScrollArea className="flex-1 px-4 py-6">
-        <SidebarNavigation items={mainNavigationItems} />
+
+      <ScrollArea className={cn("flex-1 py-4", collapsed ? "px-2" : "px-3")}>
+        <SidebarNavigation items={mainNavigationItems} collapsed={collapsed} />
       </ScrollArea>
-      <div className="mt-auto shrink-0 border-t border-border/40 p-4">
-        <SidebarNavigation items={bottomNavigationItems} ariaLabel="Secondary navigation" />
+
+      <div
+        className={cn(
+          "mt-auto shrink-0 border-t border-sidebar-border/80 space-y-1",
+          collapsed ? "p-2" : "p-3",
+        )}
+      >
+        <SidebarNavigation
+          items={bottomNavigationItems}
+          collapsed={collapsed}
+          ariaLabel="Secondary navigation"
+        />
+        {onToggleCollapse && collapsed && (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                onClick={onToggleCollapse}
+                aria-label="Expand sidebar"
+                className="w-full h-9 rounded-lg text-muted-foreground hover:text-foreground"
+              >
+                <PanelLeftOpen className="size-4" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent side="right">
+              <p className="text-xs">Expand sidebar</p>
+            </TooltipContent>
+          </Tooltip>
+        )}
       </div>
     </div>
   );
@@ -106,7 +189,7 @@ function UserMenu() {
   const { user, isAuthenticated, logout } = useAuth();
   const initials = user
     ? `${user.firstName[0] ?? ""}${user.lastName[0] ?? ""}`.toUpperCase()
-    : "AM";
+    : "TL";
 
   if (!isAuthenticated) {
     return (
@@ -126,12 +209,12 @@ function UserMenu() {
       <DropdownMenuTrigger asChild>
         <Button
           aria-label="Open account menu"
-          className="rounded-full"
+          className="rounded-full size-8"
           size="icon"
           variant="ghost"
         >
-          <Avatar className="size-8 border border-border">
-            <AvatarFallback className="bg-primary/10 text-primary text-xs font-bold">
+          <Avatar className="size-8 border border-primary/30">
+            <AvatarFallback className="bg-primary/15 text-primary text-xs font-bold">
               {initials}
             </AvatarFallback>
           </Avatar>
@@ -168,11 +251,11 @@ function CommandPaletteSearchButton() {
       type="button"
       onClick={open}
       aria-label="Search commands"
-      className="flex h-9 w-full max-w-md items-center gap-2 rounded-lg border border-input bg-muted/40 px-2.5 sm:px-3 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+      className="flex h-8 w-full max-w-md items-center gap-2 rounded-lg border border-border/80 bg-muted/50 px-2.5 sm:px-3 text-xs text-muted-foreground transition-all hover:border-primary/50 hover:bg-accent/70 hover:text-foreground shadow-2xs"
     >
-      <Search className="size-4 shrink-0" />
+      <Search className="size-3.5 shrink-0 text-primary/80" />
       <span className="min-w-0 flex-1 truncate text-left">
-        Search {env.appName}…
+        Search or jump to…
       </span>
       <span className="hidden sm:inline-flex">
         <CommandShortcuts keys={[IS_MAC ? "⌘" : "Ctrl", "K"]} />
@@ -183,29 +266,45 @@ function CommandPaletteSearchButton() {
 
 function AppLayout() {
   useNotificationEffects();
+  const [railCollapsed, setRailCollapsed] = useState(true);
 
   return (
     <CommandPaletteProvider>
       <div className="min-h-screen bg-background text-foreground flex flex-col">
-        <aside className="fixed inset-y-0 left-0 z-20 hidden w-64 border-r bg-card lg:block">
-          <Sidebar />
+        {/* Desktop Collapsible Rail Sidebar */}
+        <aside
+          className={cn(
+            "fixed inset-y-0 left-0 z-20 hidden border-r border-sidebar-border/80 bg-sidebar lg:block transition-[width] duration-200",
+            railCollapsed ? "w-16" : "w-56",
+          )}
+        >
+          <Sidebar
+            collapsed={railCollapsed}
+            onToggleCollapse={() => setRailCollapsed((prev) => !prev)}
+          />
         </aside>
 
-        <div className="lg:pl-64 flex flex-1 flex-col">
-          <header className="sticky top-0 z-10 flex h-16 items-center gap-2 sm:gap-3 border-b bg-background/95 px-3 sm:px-6 backdrop-blur">
+        <div
+          className={cn(
+            "flex flex-1 flex-col transition-[padding] duration-200",
+            railCollapsed ? "lg:pl-16" : "lg:pl-56",
+          )}
+        >
+          {/* Pro-Density Command Bar Header */}
+          <header className="sticky top-0 z-10 flex h-14 items-center gap-2 sm:gap-3 border-b border-border/75 bg-background/90 px-3 sm:px-5 backdrop-blur-md">
             <div className="flex items-center gap-2 lg:hidden">
               <Sheet>
                 <SheetTrigger asChild>
                   <Button
                     aria-label="Open navigation"
-                    className="size-9 shrink-0"
+                    className="size-8 shrink-0"
                     size="icon"
                     variant="outline"
                   >
                     <Menu className="size-4" />
                   </Button>
                 </SheetTrigger>
-                <SheetContent className="w-72 max-w-[85vw] p-0" side="left">
+                <SheetContent className="w-64 max-w-[85vw] p-0" side="left">
                   <SheetTitle className="sr-only">Navigation</SheetTitle>
                   <Sidebar />
                 </SheetContent>
@@ -214,13 +313,13 @@ function AppLayout() {
               <TaskloomLogo size="sm" textClassName="hidden sm:inline-block" />
             </div>
 
-            <div className="max-w-md flex-1">
+            <div className="max-w-lg flex-1">
               <CommandPaletteSearchButton />
             </div>
             <div className="ml-auto flex items-center gap-1 sm:gap-2">
               <Badge
                 variant="outline"
-                className="hidden sm:inline-flex h-5 px-1.5 py-0 text-[10px] font-semibold uppercase tracking-wider rounded-full border-primary/25 bg-primary/10 text-primary select-none cursor-default"
+                className="hidden sm:inline-flex h-5 px-1.5 py-0 text-[10px] font-semibold uppercase tracking-wider rounded-full border-primary/30 bg-primary/10 text-primary select-none cursor-default"
                 title="Taskloom is currently in beta"
                 aria-label="Taskloom is currently in beta"
               >
@@ -230,11 +329,12 @@ function AppLayout() {
                 <NotificationBell />
               </NotificationDrawer>
               <ThemeToggle />
-              <Separator orientation="vertical" className="h-6" />
+              <Separator orientation="vertical" className="h-5" />
               <UserMenu />
             </div>
           </header>
-          <main className="mx-auto w-full max-w-[1600px] flex-1 p-3 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
+
+          <main className="mx-auto w-full max-w-[1600px] flex-1 p-3 sm:p-4 lg:p-6 space-y-4">
             <Suspense fallback={<RouteLoading />}>
               <Outlet />
             </Suspense>

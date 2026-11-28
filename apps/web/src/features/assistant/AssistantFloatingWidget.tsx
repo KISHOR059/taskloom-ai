@@ -137,7 +137,7 @@ export function AssistantFloatingWidget() {
           className={cn(
             "fixed bottom-22 right-4 sm:right-5 z-50 flex flex-col overflow-hidden",
             "w-[calc(100vw-2rem)] sm:w-[400px] h-[min(78dvh,640px)]",
-            "rounded-3xl border border-border/80 bg-background/95 backdrop-blur-xl shadow-2xl shadow-black/20 dark:shadow-black/50",
+            "rounded-2xl border border-primary/45 ring-1 ring-primary/20 bg-background/95 backdrop-blur-xl shadow-[0_0_40px_-10px_rgba(234,88,12,0.3)] dark:shadow-[0_0_45px_-10px_rgba(234,88,12,0.35)]",
             "origin-bottom-right animate-in fade-in zoom-in-95 slide-in-from-bottom-4 duration-200",
           )}
         >

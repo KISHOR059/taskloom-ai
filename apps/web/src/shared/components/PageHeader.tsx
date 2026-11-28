@@ -18,24 +18,24 @@ export function PageHeader({
   const Heading = level;
 
   return (
-    <div className="flex flex-col gap-4 pb-4 border-b border-border/50 sm:flex-row sm:items-center sm:justify-between">
-      <div className="space-y-1">
+    <div className="flex flex-col gap-3 rounded-xl border border-border/70 bg-card/80 px-4 py-3 backdrop-blur-md shadow-2xs sm:flex-row sm:items-center sm:justify-between">
+      <div className="space-y-0.5 min-w-0">
         {eyebrow && (
-          <p className="text-xs font-semibold uppercase tracking-wider text-primary">
+          <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-primary">
             {eyebrow}
           </p>
         )}
-        <Heading className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+        <Heading className="text-lg font-bold tracking-tight text-foreground sm:text-xl">
           {title}
         </Heading>
         {description && (
-          <p className="text-sm text-muted-foreground max-w-3xl leading-relaxed">
+          <p className="text-xs text-muted-foreground max-w-3xl leading-relaxed">
             {description}
           </p>
         )}
       </div>
       {actions && (
-        <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 w-full sm:w-auto">
+        <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto shrink-0">
           {actions}
         </div>
       )}

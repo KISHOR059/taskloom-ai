@@ -12,6 +12,7 @@ import DashboardCards from "@/features/dashboard/DashboardCards";
 import DashboardTodayTasks from "@/features/dashboard/DashboardTodayTasks";
 import DashboardUpcomingTasks from "@/features/dashboard/DashboardUpcomingTasks";
 import DashboardAICard from "@/features/dashboard/DashboardAICard";
+import DashboardPriorityMatrix from "@/features/dashboard/DashboardPriorityMatrix";
 import DashboardCalendarPreview from "@/features/dashboard/DashboardCalendarPreview";
 import DashboardCharts from "@/features/dashboard/DashboardCharts";
 import DashboardInsights from "@/features/dashboard/DashboardInsights";
@@ -47,8 +48,8 @@ function DashboardPage() {
 
   return (
     <div className="max-w-screen-2xl mx-auto space-y-4 pb-8">
-      {/* 1. Hero & Greeting Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-border/40">
+      {/* 1. Command Center Hero & Greeting Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-xl border border-border/70 bg-card/80 px-4 py-3 backdrop-blur-md shadow-2xs">
         <div className="space-y-0.5">
           <h1 className="text-lg sm:text-xl font-bold tracking-tight text-foreground">
             {getGreeting(user?.firstName)}
@@ -149,8 +150,10 @@ function DashboardPage() {
                 <DashboardInsights className="flex-1" />
               </div>
 
-              {/* Right Column: AI Assistant & Calendar Preview (5 cols on lg) */}
+              {/* Right Column: Priority Matrix, AI Assistant & Calendar Preview (5 cols on lg) */}
               <div className="lg:col-span-5 space-y-3.5 flex flex-col">
+                <DashboardPriorityMatrix tasks={allTasks} />
+
                 <DashboardAICard />
 
                 <DashboardCalendarPreview tasks={allTasks} className="flex-1" />
